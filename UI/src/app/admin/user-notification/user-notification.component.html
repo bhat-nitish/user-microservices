@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Notify User at : {{email}}</h2>
+
+<mat-dialog-content [formGroup]="form">
+    <mat-form-field>
+        <textarea matInput type="text" placeholder="Add Message" formControlName="notification"
+            id="notification"></textarea>
+        <mat-hint align="end">Not more then 200 characters long.</mat-hint>
+        <mat-error *ngIf="hasError('notification', 'required')">Notification is required</mat-error>
+        <mat-error *ngIf="hasError('notification', 'maxlength')">Notification should be less than 200 characters
+        </mat-error>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Cancel</button>
+    <button [disabled]="!form.valid" class="mat-raised-button update-user-button" (click)="notify()">Notify</button>
+</mat-dialog-actions>

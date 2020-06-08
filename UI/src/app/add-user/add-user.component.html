@@ -1,0 +1,48 @@
+<div class="add-user-section">
+    <section fxLayout="row wrap" fxLayoutAlign="center center">
+        <mat-card class="add-user-card" fxFlex="500px" fxFlex.xs="100%">
+            <mat-card-title>Create User</mat-card-title>
+            <form [formGroup]="userForm" autocomplete="off" novalidate fxLayout="column wrap"
+                fxLayoutAlign="center center" fxLayoutGap="10px">
+                <mat-card-content>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="User Name" formControlName="name" id="name">
+                        <mat-hint align="end">Not more then 20 characters long.</mat-hint>
+                        <mat-error *ngIf="hasError('name', 'required')">User Name is required</mat-error>
+                        <mat-error *ngIf="hasError('name', 'maxlength')">User Name should be less than 20 characters
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input required matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker"
+                            placeholder="Date of Birth" formControlName="dateOfBirth" id="dateOfBirth" readonly
+                            (click)="picker.open()">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="hasError('dateOfBirth','required')">
+                            Date of Birth is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput [email]="true" type="email" placeholder="Email Address" formControlName="email"
+                            id="email" [pattern]="emailPattern">
+                        <mat-hint align="end">Select a valid email address</mat-hint>
+                        <mat-error *ngIf="hasError('email','required')">
+                            Email is required
+                        </mat-error>
+                        <mat-error *ngIf="!hasError('email','required')">
+                            Please enter a valid email address
+                        </mat-error>
+                    </mat-form-field>
+
+                </mat-card-content>
+                <mat-card-actions class="add-user-card-actions">
+                    <button (click)="createUser(userForm.value)" mat-raised-button color="primary"
+                        [disabled]="!userForm.valid">Create</button>
+                    <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+    </section>
+</div>

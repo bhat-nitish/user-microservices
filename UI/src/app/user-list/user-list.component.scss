@@ -1,0 +1,37 @@
+table {
+    width: 60%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+    margin-left: 20%;
+    border-collapse: collapse;
+    border-radius: 2em;
+}
+
+.mat-table
+{
+  background-color:transparent!important;  
+}
+
+th.mat-header-cell {
+    text-align: left;
+}
+
+.filter-users {
+    width: 30%;
+    margin-left: 35%;
+}
+
+.create-user-button {
+    margin-left: 73%;
+    margin-bottom: 2%;
+}
+
+.mat-row:nth-child(even) {
+    background-color: lightblue;
+}
+
+.create-user-btn-color {
+    background-color: #673ab7;
+    color: white;
+}

@@ -1,0 +1,63 @@
+<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px"
+    fxLayoutGap.lt.md="20px">
+    <mat-form-field class="filter-users">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+</div>
+<div class="create-user-button">
+
+    <button mat-raised-button class="create-user-btn-color" routerLink="/users">Create User</button>
+
+    <!-- <a [routerLink]="['/users']" mat-button color="primary">Create User</a> -->
+</div>
+<table mat-table [dataSource]="dataSource" matSort matSortStart="desc" (matSortChange)="customSort($event)">
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date of Birth </th>
+        <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef> Update </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">
+                <mat-icon class="mat-18">system_update</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="notification">
+        <th mat-header-cell *matHeaderCellDef> Notifications </th>
+        <td (click)="showNotifications(element.notifications)" mat-cell *matCellDef=" let element">
+            <button mat-icon-button color="accent">
+                <mat-icon *ngIf="element.notifications.length>0" class="mat-18">notifications_active</mat-icon>
+                <mat-icon *ngIf="element.notifications.length<=0" class="mat-18">notifications</mat-icon>
+                <span *ngIf="element.notifications.length>0" matBadge="4"
+                    matBadgeColor="warn">{{element.notifications.length}}</span>
+            </button>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+                <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10]">
+</mat-paginator>
